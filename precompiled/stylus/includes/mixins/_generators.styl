@@ -1,0 +1,53 @@
+
+
+//	Including Styles from hashes
+include(property-list)
+	for key, value in property-list
+		{key}: value;
+
+//	Responsive Mixins
+
+//	TODO: Use for retina and similar screens later (1.25,1.3,1.5)
+/*
+high-density-media-mixin(screenwidth)
+	rules = '-webkit-min-device-pixel-ratio: 2','min--moz-device-pixel-ratio: 2','-o-min-device-pixel-ratio: 2/1','min-device-pixel-ratio: 2','min-resolution: 192dpi','min-resolution: 2dppx'
+	s = ''
+	for rule in rules
+		s += "only screen and (" + rule + ")      and (min-width:" + screenwidth + ") ,"
+	s
+*/
+
+
+//	Respond to Responsive Sections
+respond-to(agent)
+	if agent == 'phone' || agent == 'tablet'			//	Phone
+		max-w = Devices[agent].max-w
+		device-query = 	"only screen and (max-width: " + max-w + ")";
+		@media device-query
+			{block}
+		if agent == 'tablet'	//	Phones should use tablet-and-down stlyes
+			.act-like-phone & , .act-like-tablet &
+				{block}
+		else
+			.act-like-phone &
+				{block}
+	else if agent == 'desktop' 	//	Desktop Only
+		@media only screen and (min-width: Devices.desktop.min-w)
+			{block}
+		.act-like-desktop &
+			{block}
+
+grid-row()
+	//@import '../vars/_devices'	// !! grunt needs variables imported again, stylus does not
+	//p('global: Devices in mixin ' Devices.desktop)
+	d = Devices.desktop
+	t = Devices.tablet
+	p = Devices.phone
+	//	Desktop Size
+	//	- center mixin automatically subtracts from device width
+	center(max-width: d.max-w, pad: d.outer-padding);
+	//grunt processes this after sending, another variable scope issue
+	+respond-to('tablet')
+		center(max-width: t.max-w , pad: t.outer-padding);
+	+respond-to('phone')
+		center(max-width: p.max-w , pad: p.outer-padding);

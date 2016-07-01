@@ -1,0 +1,151 @@
+/*-
+name: 		'Brand Colors'
+parent: 	'Colors'
+desc: 		'Brand Colors'
+commentData:
+		colorExamples: [
+			{name: 'White'       , class: 'white'}
+			{name: 'Wisp'        , class: 'wisp'}
+			{name: 'Steel'       , class: 'steel'}
+			{name: 'Cloud'       , class: 'cloud'}
+			{name: 'Black'       , class: 'black'}
+			{name: 'Error'       , class: 'error'}
+			{name: 'Clover'      , class: 'clover'}
+			{name: 'Gold'        , class: 'gold'}
+		]
+		_usageData :
+			root                : '.styleguide-color-figure'
+			classes             : ['No Direct Usage.']
+			classesToRemove     : []
+			includes            : ["No Direct Usage."]
+			cssSelectors :
+				'div'  : ['background-color']
+examples:	[	'''
+				- var colorList 	= data.commentData.colorExamples
+				- var _parentVar 	= 'Colors'
+				ul
+					each color, index in colorList
+						- var _usageVar = color.class
+						div.example
+							.styleguide-color-figure
+								div(class='#{color.class}')
+								h4 #{color.name}
+							<<usage>>
+				''']
+-*/
+Colors = {
+	white:       #fff
+	wisp:        #f4f4f4
+	steel:       #ccc
+	cloud:       #8e8e8e
+	black:       #000000
+	clover:      #1aaf69
+	error:       #c01111
+	gold:        #b6974b
+}
+
+.styleguide-color-figure
+	div
+		height: 5px;
+		margin-bottom: 10px;
+	h4
+		color: Colors.cloud
+
+for name in Colors
+	.styleguide-color-figure
+		.{name}
+			background-color: Colors[name]
+
+
+/*-
+name: 		'Colors Pallets'
+parent: 	'Colors'
+desc: 		'Text and background color combinations used throughout the site.'
+commentData:
+		palletExamples: [
+			{name: 'Main Copy'			, class: 'copy'}
+			{name: 'Button'				, class: 'button'}
+			{name: 'Faded Link'			, class: 'faded-link'}
+			{name: 'Promotion'			, class: 'promotion'}
+			{name: 'Error'				, class: 'error-text'}
+			{name: 'Build a Box Gold'	, class: 'gold-text'}
+		]
+		_usageData :
+			root                : '.styleguide-pallet-tile'
+			classes             : ['No Public Class']
+			classesToRemove     : ['styleguide-pallet-tile']
+			includes            : ["include(<<parentVar>>.<<usageVar>>);"]
+			cssSelectors :
+				'<<root>>'  : ['color','background-color']
+examples:	[	'''
+				- var palletList 	= data.commentData.palletExamples
+				- var _parentVar 	= 'ColorPallets'
+				ul
+					each pallet, index in palletList
+						- var _usageVar = pallet.class
+						div.example
+							.styleguide-pallet-tile(class='#{pallet.class}')
+								h4 #{pallet.name}
+							<<usage>>
+				''']
+-*/
+
+//	Smoothing Mixin - trouble rendering with Stylus
+font-smoothing(value = 'on')
+	if value == 'on'
+		-webkit-font-smoothing: antialiased
+		-moz-osx-font-smoothing: grayscale
+	else
+		-webkit-font-smoothing: subpixel-antialiased
+		-moz-osx-font-smoothing: auto
+
+
+
+ColorPallets = {
+	copy: {
+		color: Colors.black
+		background-color:Colors.white
+		-webkit-font-smoothing: subpixel-antialiased	// use mixin for these with later stylus version
+		-moz-osx-font-smoothing: auto
+	},
+	button: {
+		color: Colors.white
+		background-color:Colors.black
+		-webkit-font-smoothing: antialiased
+		-moz-osx-font-smoothing: grayscale
+	},
+	faded-link: {
+		color:Colors.cloud
+		background-color:Colors.white
+		-webkit-font-smoothing: subpixel-antialiased
+		-moz-osx-font-smoothing: auto
+	},
+	promotion: {
+		color:Colors.white
+		background-color:Colors.clover
+		-webkit-font-smoothing: antialiased
+		-moz-osx-font-smoothing: grayscale
+	},
+	error-text: {
+		color:Colors.error
+		background-color:Colors.white
+		-webkit-font-smoothing: subpixel-antialiased
+		-moz-osx-font-smoothing: auto
+	},
+	gold-text: {
+		color:Colors.gold
+		background-color:Colors.white
+		-webkit-font-smoothing: subpixel-antialiased
+		-moz-osx-font-smoothing: auto
+	},
+	faded-bg: {
+		color:Colors.black
+		background-color:Colors.wisp
+		-webkit-font-smoothing: subpixel-antialiased
+		-moz-osx-font-smoothing: auto
+	}
+}
+
+for name in ColorPallets
+	.styleguide-pallet-tile.{name}
+		include(ColorPallets[name]);
