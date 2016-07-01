@@ -1,0 +1,16 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "angular-ui-router": "^0.3.1",
+    "gulp": "^3.9.1",
+    "gulp-stylus": "^2.5.0"
+  }
+}
