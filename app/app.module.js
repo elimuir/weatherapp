@@ -4,3 +4,30 @@ var config = {
 }
 
 var weatherApp = angular.module('weatherApp', ['serviceWeatherForecast', 'ui.router']);
+
+
+weatherApp.config(['$urlRouterProvider', '$stateProvider',
+  function($urlRouterProvider, $stateProvider){
+
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+      .state('home', {
+          url:'/',
+          templateUrl: 'app/weatherforecast/weatherforecast.template.html',
+          views: {
+            'header': {
+                templateUrl: 'app/pageelements/header.html'
+              },
+            'page': {
+                templateUrl: 'app/weatherforecast/weatherforecast.template.html',
+                controller: 'ctrlWeatherForecast',
+                views: {
+                  'popup': {templateUrl: "app/weatherforecast/forecast.html"}
+                }
+              }
+          }
+      });
+
+  }
+]);
