@@ -2,7 +2,7 @@
 weathernerdzzz
 ==============
 
-This is basic app that provides weather information based on a date, time and location.
+This is basic angularjs app that provides weather information based on a date, time and location.
 
 **Setup and Install**
 --------------
