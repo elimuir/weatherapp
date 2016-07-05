@@ -11,3 +11,18 @@ a
 
 .page-wrapper
   grid-row()
+
+.map-point
+  font-size:125%;
+  .label
+    display:none;
+
+  &.temperature
+    font-size:48px;
+    &:after
+      content: "\00b0"
+
+  &.humidity
+    .label
+        display:block;
+        font-weight: bold;
