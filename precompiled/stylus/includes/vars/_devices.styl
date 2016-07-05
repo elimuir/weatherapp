@@ -1,0 +1,50 @@
+/*
+name: 		'Device Sizing'
+parent: 	'Grid and Spacing'
+desc: 		'Site Dimensions'
+examples:	[	'''
+				div
+				''']
+*/
+
+/*
+name: 		'Device 2'
+parent: 	'Grid and Spacing'
+desc: 		'Site Dimensions'
+examples:	[	'''
+				div
+				''']
+*/
+
+//	Site Dimensions , defines grid and panel sizing for all browser sizes
+//
+//		- Responsive sections are display:border-box;
+//		- no gutters for grid system
+//
+Devices = {
+	desktop: {
+		max-w:			1024px		//	main col can't get larger
+		min-w:			768px		//	cut-off for desktop only styles
+		outer-padding:	35px 		//	subtracted from max-w
+		columns: 		12
+		panel-padding:	30px		//	subtracted from column width
+	},
+	tablet: {
+		max-w:			1024px		//	break to tablet here
+		outer-padding:	24px
+		columns: 		6
+		panel-padding:	48px
+	},
+	phone: {
+		max-w:			768px
+		outer-padding:	18px
+		columns: 		2
+		panel-padding:	10px
+	}
+}
+
+//	NOTE: Mixins for device sizes appear in mixins/_generators
+
+for device in Devices
+	.act-like-{device}
+		center(max-width:Devices[device].max-w,pad=0)

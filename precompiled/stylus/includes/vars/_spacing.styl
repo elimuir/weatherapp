@@ -1,0 +1,198 @@
+/*-
+name: 		'Spacing Conventions'
+parent: 	'Spacing'
+desc: 		'Margin and Padding for reusable component classes. Based on HTML semantic tabs.'
+commentData:
+		spacingExamples: [
+			{name: 'Module'				, class: 'module'			,	size: 100}
+			{name: 'Small Module'		, class: 'small-module'		,	size: 80}
+			{name: 'Large Component'	, class: 'large-component'	,	size: 60}
+			{name: 'Component'			, class: 'component'		,	size: 40}
+			{name: 'Small Component'	, class: 'small-component'	,	size: 30}
+			{name: 'Large Element'		, class: 'large-element'	,	size: 25}
+			{name: 'Element'			, class: 'element'			,	size: 20}
+			{name: 'Small Element'		, class: 'small-element'	,	size: 15}
+			{name: 'X Small Element'	, class: 'x-small-element'	,	size: 10}
+			{name: 'Zero (Reset)'		, class: 'zero'				,	size: 0}
+		]
+examples:	[	'''
+					- var spacings 		= data.commentData.spacingExamples
+					- var useageMixin 	= data.usageString
+					- var pBoth 		= 'PaddingBoth'
+					- var pTop 			= 'PaddingTop'
+					- var pBot			= 'PaddingBottom'
+					- var mBoth 		= 'MarginBoth'
+					- var mTop 			= 'MarginTop'
+					- var mBot 			= 'MarginBottom'
+					p.example-description.
+						Units
+					ul.spacing-units
+						li.header
+							div Name
+							div Index
+							div px
+						each spacing , index in spacings
+							li
+								div= spacing.name
+								div= spacing.class
+								div= spacing.size
+					p.example-description.
+						Basic Usage
+					ul
+						each spacing , index in spacings
+							li
+								p #{spacing.name}
+								div.spacing-example-wrapper
+									div(
+										class='spacing-example v-pad-#{spacing.class} how-to-source'
+										data-class='.v-pad-#{spacing.class} , .v-mar-#{spacing.class}'
+										data-include='#{pBoth + "." + spacing.class},#{mBoth + "." + spacing.class}'
+									)
+										div #{spacing.size}px padding
+									div(class='spacing-example v-mar-#{spacing.class}')
+										div #{spacing.size}px margin
+									!= useageMixinTODO
+					p.example-description.v-mar-top-large-element.
+						Can also be applied on one side only.
+					ul
+						- var spacing = data.commentData.spacingExamples[0]
+						li
+							p #{spacing.name}
+							div.spacing-example-wrapper
+								div(
+									class='spacing-example v-pad-top-#{spacing.class} how-to-source'
+									data-class='.v-pad-top-#{spacing.class} , .v-pad-bot-#{spacing.class}'
+									data-include='#{pTop + "." + spacing.class},#{pBot + "." + spacing.class}'
+								)
+									div #{spacing.size}px padding top
+								div(class='spacing-example v-pad-bot-#{spacing.class}')
+									div #{spacing.size}px padding bot
+								!= useageMixin
+							div.spacing-example-wrapper
+								div(
+									class='spacing-example v-mar-top-#{spacing.class} how-to-source'
+									data-class='.v-mar-top-#{spacing.class} , .v-mar-bot-#{spacing.class}'
+									data-include='#{mTop + "." + spacing.class},#{mBot + "." + spacing.class}'
+								)
+									div #{spacing.size}px margin top
+								div(class='spacing-example v-mar-bot-#{spacing.class}')
+									div #{spacing.size}px margin bot
+								!= useageMixinTODO
+				''']
+-*/
+Spacing = {
+	module:				100px
+	small-module: 		80px
+	large-component:	60px
+	component: 			40px
+	small-component: 	30px
+	large-element: 		25px
+	element: 			20px
+	small-element: 		15px
+	x-small-element: 	10px
+	zero: 				0
+}
+
+//	Utility Includes
+PaddingAll 		= {}
+PaddingBoth 	= {} // old vertical naming convention
+PaddingV 		= {}
+PaddingH 		= {}
+PaddingTop 		= {}
+PaddingBottom 	= {}
+
+MarginAll 		= {}
+MarginBoth 		= {} // old naming convention
+MarginV 		= {}
+MarginH 		= {}
+MarginTop 		= {}
+MarginBottom 	= {}
+
+for spacingClass , num in Spacing
+	s = Spacing[spacingClass]
+	PaddingAll[spacingClass] = {
+		padding-top: s
+		padding-bottom: s
+		padding-left: s
+		padding-right: s
+	}
+	PaddingBoth[spacingClass] = {
+		padding-top: s
+		padding-bottom: s
+	}
+	PaddingV[spacingClass] = {
+		padding-top: s
+		padding-bottom: s
+	}
+	PaddingH[spacingClass] = {
+		padding-left: s
+		padding-right: s
+	}
+	PaddingTop[spacingClass] = {
+		padding-top: s
+	}
+	PaddingBottom[spacingClass] = {
+		padding-bottom: s
+	}
+
+	MarginAll[spacingClass] = {
+		margin-top: s
+		margin-bottom: s
+		margin-left: s
+		margin-right: s
+	}
+	MarginBoth[spacingClass] = {
+		margin-top: s
+		margin-bottom: s
+	}
+	MarginV[spacingClass] = {
+		margin-top: s
+		margin-bottom: s
+	}
+	MarginH[spacingClass] = {
+		margin-left: s
+		margin-right: s
+	}
+	MarginTop[spacingClass] = {
+		margin-top: s
+	}
+	MarginBottom[spacingClass] = {
+		margin-bottom: s
+	}
+
+//	Utility Classes
+for spacingClass , num in Spacing
+	.v-pad-{spacingClass}
+		include(PaddingBoth[spacingClass])
+	.v-pad-top-{spacingClass}
+		include(PaddingTop[spacingClass])
+	.v-pad-bot-{spacingClass}
+		include(PaddingBottom[spacingClass])
+
+	.v-mar-{spacingClass}
+		include(MarginBoth[spacingClass])
+	.v-mar-top-{spacingClass}
+		include(MarginTop[spacingClass])
+	.v-mar-bot-{spacingClass}
+		include(MarginBottom[spacingClass])
+
+//	Example Spacings
+.spacing-units
+	center(max-width:600px);
+	li
+		overflow:hidden
+		margin-bottom: 5px;
+		padding: 5px;
+		background-color: Colors.wisp;
+		div
+			col(4/12);
+	li.header
+		include(ColorPallets.faded-link);
+
+.spacing-example-wrapper
+	overflow:hidden;
+	include(PaddingBoth.small-element);
+.spacing-example
+	col(6/12, guttter:.5)
+	text-align:center;
+	background-color:#f4f4f4;

@@ -1,0 +1,22 @@
+<html>
+<head>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+  <link href="css/default.css" rel="stylesheet" type="text/css">
+</head>
+<body ng-app="weatherApp">
+
+  <div ui-view="header" class="header"></div>
+  <div ui-view="page" class="page-wrapper"></div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+  <script src="js/skycons.js"></script>
+
+  <script src="app/app.module.js"></script>
+  <script src="app/weatherforecast/serviceWeatherForecast.module.js"></script>
+  <script src="app/weatherforecast/serviceWeatherForecast.component.js"></script>
+  <script src="app/weatherforecast/weatherforecast.controller.js"></script>
+
+</body>
+</html>
