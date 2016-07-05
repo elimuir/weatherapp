@@ -14,7 +14,6 @@ weatherApp.config(['$urlRouterProvider', '$stateProvider',
     $stateProvider
       .state('home', {
           url:'/',
-          templateUrl: 'app/weatherforecast/weatherforecast.template.html',
           views: {
             'header': {
                 templateUrl: 'app/pageelements/header.html'
